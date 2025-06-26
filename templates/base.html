@@ -51,7 +51,7 @@
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="{{ url_for('index', lang=lang) }}" class="nav-link">{{ t.home if t else 'Home' }}</a>
                         <a href="{{ url_for('events', lang=lang) }}" class="nav-link">{{ t.events if t else 'Events' }}</a>
-                        <a href="{{ url_for('gallery', lang=lang) }}" class="nav-link">{{ t.gallery if t else 'Gallery' }}</a>
+                       
                         <a href="{{ url_for('products', lang=lang) }}" class="nav-link">{{ t.products if t else 'Products' }}</a>
                         <a href="{{ url_for('report_incident', lang=lang) }}" class="nav-link">{{ t.report if t else 'Report' }}</a>
                     </div>
