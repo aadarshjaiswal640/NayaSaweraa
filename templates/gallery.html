@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t.gallery }} - Naya Sawera Foundation{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="bg-gradient-to-r from-primary to-blue-700 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ t.gallery }}</h1>
+        <p class="text-xl">Discover our work through images, videos, and stories</p>
+    </div>
+</section>
+
+<!-- Filter Options -->
+<section class="py-8 bg-white border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap justify-center gap-4">
+            <button onclick="filterGallery('all')" class="filter-btn active" data-filter="all">
+                All Items
+            </button>
+            <button onclick="filterGallery('image')" class="filter-btn" data-filter="image">
+                <i class="fas fa-image mr-2" aria-hidden="true"></i>Images
+            </button>
+            <button onclick="filterGallery('video')" class="filter-btn" data-filter="video">
+                <i class="fas fa-video mr-2" aria-hidden="true"></i>Videos
+            </button>
+            <button onclick="filterGallery('article')" class="filter-btn" data-filter="article">
+                <i class="fas fa-newspaper mr-2" aria-hidden="true"></i>Articles
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Grid -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {% if gallery.items %}
+            <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for item in gallery.items %}
+                <div class="gallery-item bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow" 
+                     data-type="{{ item.type }}">
+                    <div class="relative">
+                        {% if item.type == 'image' %}
+                            <img src="{{ item.url }}" alt="{{ item.title }}" 
+                                 class="w-full h-64 object-cover cursor-pointer"
+                                 onclick="openLightbox('{{ item.url }}', '{{ item.title }}', 'image')">
+                            <div class="absolute top-4 right-4">
+                                <span class="bg-blue-500 text-white px-2 py-1 rounded-full text-xs">
+                                    <i class="fas fa-image mr-1" aria-hidden="true"></i>Image
+                                </span>
+                            </div>
+                        {% elif item.type == 'video' %}
+                            {% if item.thumbnail_url %}
+                                <img src="{{ item.thumbnail_url }}" alt="{{ item.title }}" 
+                                     class="w-full h-64 object-cover cursor-pointer"
+                                     onclick="openLightbox('{{ item.url }}', '{{ item.title }}', 'video')">
+                            {% else %}
+                                <div class="w-full h-64 bg-gray-300 flex items-center justify-center cursor-pointer"
+                                     onclick="openLightbox('{{ item.url }}', '{{ item.title }}', 'video')">
+                                    <i class="fas fa-play-circle text-6xl text-gray-600" aria-hidden="true"></i>
+                                </div>
+                            {% endif %}
+                            <div class="absolute top-4 right-4">
+                                <span class="bg-red-500 text-white px-2 py-1 rounded-full text-xs">
+                                    <i class="fas fa-video mr-1" aria-hidden="true"></i>Video
+                                </span>
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fas fa-play-circle text-4xl text-white opacity-80" aria-hidden="true"></i>
+                            </div>
+                        {% else %}
+                            {% if item.thumbnail_url %}
+                                <img src="{{ item.thumbnail_url }}" alt="{{ item.title }}" 
+                                     class="w-full h-64 object-cover">
+                            {% else %}
+                                <div class="w-full h-64 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                                    <i class="fas fa-newspaper text-6xl text-white" aria-hidden="true"></i>
+                                </div>
+                            {% endif %}
+                            <div class="absolute top-4 right-4">
+                                <span class="bg-green-500 text-white px-2 py-1 rounded-full text-xs">
+                                    <i class="fas fa-newspaper mr-1" aria-hidden="true"></i>Article
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">{{ item.title }}</h3>
+                        <p class="text-gray-600 mb-4">{{ item.description }}</p>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">
+                                <i class="fas fa-calendar mr-1" aria-hidden="true"></i>
+                                {{ item.added_at[:10] }}
+                            </span>
+                            
+                            {% if item.type == 'article' %}
+                                <a href="{{ item.url }}" target="_blank" 
+                                   class="bg-accent hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+                                    Read More
+                                </a>
+                            {% else %}
+                                <button onclick="openLightbox('{{ item.url }}', '{{ item.title }}', '{{ item.type }}')" 
+                                        class="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+                                    View
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-12">
+                <i class="fas fa-images text-6xl text-gray-300 mb-4" aria-hidden="true"></i>
+                <h2 class="text-2xl font-semibold text-gray-600 mb-2">No Gallery Items</h2>
+                <p class="text-gray-500">Check back soon for photos, videos, and stories from our work.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center p-4">
+    <div class="relative max-w-4xl w-full">
+        <button onclick="closeLightbox()" 
+                class="absolute top-4 right-4 text-white text-2xl hover:text-gray-300 z-10">
+            <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+        
+        <div id="lightbox-content" class="text-center">
+            <!-- Content will be inserted here -->
+        </div>
+        
+        <div id="lightbox-caption" class="text-white text-center mt-4">
+            <!-- Caption will be inserted here -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function filterGallery(type) {
+    const items = document.querySelectorAll('.gallery-item');
+    const buttons = document.querySelectorAll('.filter-btn');
+    
+    // Update button states
+    buttons.forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`[data-filter="${type}"]`).classList.add('active');
+    
+    // Filter items
+    items.forEach(item => {
+        if (type === 'all' || item.dataset.type === type) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+function openLightbox(url, title, type) {
+    const lightbox = document.getElementById('lightbox');
+    const content = document.getElementById('lightbox-content');
+    const caption = document.getElementById('lightbox-caption');
+    
+    if (type === 'image') {
+        content.innerHTML = `<img src="${url}" alt="${title}" class="max-w-full max-h-96 object-contain">`;
+    } else if (type === 'video') {
+        content.innerHTML = `<video controls class="max-w-full max-h-96">
+                                <source src="${url}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>`;
+    }
+    
+    caption.innerHTML = `<h3 class="text-xl font-semibold">${title}</h3>`;
+    lightbox.classList.remove('hidden');
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const content = document.getElementById('lightbox-content');
+    
+    lightbox.classList.add('hidden');
+    content.innerHTML = '';
+}
+
+// Close lightbox when clicking outside content
+window.onclick = function(event) {
+    const lightbox = document.getElementById('lightbox');
+    if (event.target === lightbox) {
+        closeLightbox();
+    }
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeLightbox();
+    }
+});
+</script>
+{% endblock %}

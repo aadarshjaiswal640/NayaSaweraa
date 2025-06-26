@@ -1,0 +1,24 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Handcrafted Eco-Friendly Bags",
+      "description": "Beautiful handmade bags created by our skill development program participants. Made from sustainable materials.",
+      "price": 299,
+      "image_url": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      "available": true,
+      "added_at": "2024-06-01T10:00:00Z",
+      "orders": []
+    },
+    {
+      "id": 2,
+      "name": "Organic Honey - 500g",
+      "description": "Pure organic honey from our beekeeping initiative, supporting rural farmers and sustainable agriculture.",
+      "price": 450,
+      "image_url": "https://images.unsplash.com/photo-1587049352846-4a222e784d38?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      "available": true,
+      "added_at": "2024-06-05T15:30:00Z",
+      "orders": []
+    }
+  ]
+}

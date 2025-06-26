@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t.home }} - Naya Sawera Foundation{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-r from-primary to-blue-700 text-white" role="banner">
+    <div class="absolute inset-0 bg-black opacity-20"></div>
+    {% if content.hero_image %}
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ content.hero_image }}');"></div>
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+    {% endif %}
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">{{ t.welcome }}</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">{{ t.hero_subtitle }}</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="{{ url_for('events', lang=lang) }}" 
+                   class="bg-secondary hover:bg-yellow-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+                    {{ t.donate }}
+                </a>
+                <a href="#about" 
+                   class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-8 py-3 rounded-lg font-semibold transition-colors backdrop-blur-sm">
+                    {{ t.learn_more }}
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission Section -->
+<section id="about" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">{{ t.mission }}</h2>
+            <p class="text-lg text-gray-600 max-w-4xl mx-auto">{{ content.mission }}</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Education -->
+            <div class="text-center p-6 rounded-lg bg-gray-50 hover:shadow-lg transition-shadow">
+                <div class="bg-primary bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-graduation-cap text-2xl text-primary" aria-hidden="true"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Education</h3>
+                <p class="text-gray-600">Providing quality education and skill development programs to empower individuals and communities.</p>
+            </div>
+            
+            <!-- Healthcare -->
+            <div class="text-center p-6 rounded-lg bg-gray-50 hover:shadow-lg transition-shadow">
+                <div class="bg-accent bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-heartbeat text-2xl text-accent" aria-hidden="true"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Healthcare</h3>
+                <p class="text-gray-600">Delivering essential healthcare services and promoting wellness in underserved communities.</p>
+            </div>
+            
+            <!-- Community Development -->
+            <div class="text-center p-6 rounded-lg bg-gray-50 hover:shadow-lg transition-shadow">
+                <div class="bg-secondary bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-users text-2xl text-secondary" aria-hidden="true"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Community Development</h3>
+                <p class="text-gray-600">Building sustainable communities through empowerment programs and capacity building initiatives.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">{{ t.about }}</h2>
+                <p class="text-lg text-gray-600 mb-6">{{ content.about_text }}</p>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-accent text-xl mr-3 mt-1" aria-hidden="true"></i>
+                        <p class="text-gray-600">Transparent operations and accountable use of resources</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-accent text-xl mr-3 mt-1" aria-hidden="true"></i>
+                        <p class="text-gray-600">Community-driven approach to sustainable development</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-accent text-xl mr-3 mt-1" aria-hidden="true"></i>
+                        <p class="text-gray-600">Measurable impact and continuous improvement</p>
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                     alt="Community development work" 
+                     class="rounded-lg shadow-lg w-full h-96 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent rounded-lg"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Work Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">{{ t.our_work }}</h2>
+            <p class="text-lg text-gray-600">See how we're making a difference in communities</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Statistics -->
+            <div class="text-center p-6 bg-primary bg-opacity-5 rounded-lg">
+                <div class="text-3xl font-bold text-primary mb-2">1000+</div>
+                <p class="text-gray-600">Children Educated</p>
+            </div>
+            <div class="text-center p-6 bg-accent bg-opacity-5 rounded-lg">
+                <div class="text-3xl font-bold text-accent mb-2">50+</div>
+                <p class="text-gray-600">Medical Camps</p>
+            </div>
+            <div class="text-center p-6 bg-secondary bg-opacity-5 rounded-lg">
+                <div class="text-3xl font-bold text-secondary mb-2">25+</div>
+                <p class="text-gray-600">Villages Served</p>
+            </div>
+            <div class="text-center p-6 bg-purple-500 bg-opacity-5 rounded-lg">
+                <div class="text-3xl font-bold text-purple-500 mb-2">500+</div>
+                <p class="text-gray-600">Volunteers</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-16 bg-gradient-to-r from-primary to-blue-700 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">{{ t.get_involved }}</h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">Join us in creating positive change. Every contribution makes a difference.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{{ url_for('events', lang=lang) }}" 
+               class="bg-secondary hover:bg-yellow-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+                {{ t.donate }}
+            </a>
+            <a href="{{ url_for('events', lang=lang) }}#volunteer" 
+               class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-8 py-3 rounded-lg font-semibold transition-colors backdrop-blur-sm">
+                {{ t.volunteer }}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
