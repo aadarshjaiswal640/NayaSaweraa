@@ -99,10 +99,20 @@ def submit_report():
 @app.route('/gallery')
 @app.route('/gallery/<lang>')
 def gallery(lang='en'):
-    gallery_data = load_json_data('data/gallery.json')
-    content = load_json_data('data/content.json')
-    translations = get_translation(lang)
-    return render_template('gallery.html', gallery=gallery_data, content=content, lang=lang, t=translations)
+    try:
+        gallery_data = load_json_data('data/gallery.json')
+        content = load_json_data('data/content.json')
+        translations = get_translation(lang)
+        
+        # Debug: Print gallery_data structure
+        print(f"Gallery data type: {type(gallery_data)}")
+        print(f"Gallery data keys: {gallery_data.keys() if isinstance(gallery_data, dict) else 'Not a dict'}")
+        
+        return render_template('gallery.html', gallery_data=gallery_data, content=content, lang=lang, t=translations)
+    except Exception as e:
+        print(f"Gallery error: {e}")
+        translations = get_translation(lang)
+        return render_template('gallery.html', gallery_data={'items': []}, content={}, lang=lang, t=translations)
 
 @app.route('/products')
 @app.route('/products/<lang>')
