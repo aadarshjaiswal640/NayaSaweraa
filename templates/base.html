@@ -61,12 +61,21 @@
                 <!-- Language Toggle -->
                 <div class="flex items-center space-x-4">
                     <div class="hidden md:flex space-x-2">
-                        <a href="{{ url_for(request.endpoint, lang='en', **request.view_args) }}" 
-                           class="lang-btn {{ 'active' if lang == 'en' else '' }}" 
-                           aria-label="Switch to English">EN</a>
-                        <a href="{{ url_for(request.endpoint, lang='hi', **request.view_args) }}" 
-                           class="lang-btn {{ 'active' if lang == 'hi' else '' }}" 
-                           aria-label="Switch to Hindi">हिं</a>
+                        {% if request.endpoint %}
+                            <a href="{{ url_for(request.endpoint, lang='en', **request.view_args) if request.view_args else url_for(request.endpoint, lang='en') }}" 
+                               class="lang-btn {{ 'active' if lang == 'en' else '' }}" 
+                               aria-label="Switch to English">EN</a>
+                            <a href="{{ url_for(request.endpoint, lang='hi', **request.view_args) if request.view_args else url_for(request.endpoint, lang='hi') }}" 
+                               class="lang-btn {{ 'active' if lang == 'hi' else '' }}" 
+                               aria-label="Switch to Hindi">हिं</a>
+                        {% else %}
+                            <a href="{{ url_for('index', lang='en') }}" 
+                               class="lang-btn {{ 'active' if lang == 'en' else '' }}" 
+                               aria-label="Switch to English">EN</a>
+                            <a href="{{ url_for('index', lang='hi') }}" 
+                               class="lang-btn {{ 'active' if lang == 'hi' else '' }}" 
+                               aria-label="Switch to Hindi">हिं</a>
+                        {% endif %}
                     </div>
                     
                     <!-- Mobile menu button -->
@@ -89,10 +98,17 @@
                 <a href="{{ url_for('report_incident', lang=lang) }}" class="mobile-nav-link">{{ t.report }}</a>
                 <a href="{{ url_for('admin_dashboard') }}" class="mobile-nav-link">{{ t.admin }}</a>
                 <div class="flex space-x-2 px-3 py-2">
-                    <a href="{{ url_for(request.endpoint, lang='en', **request.view_args) }}" 
-                       class="lang-btn {{ 'active' if lang == 'en' else '' }}">EN</a>
-                    <a href="{{ url_for(request.endpoint, lang='hi', **request.view_args) }}" 
-                       class="lang-btn {{ 'active' if lang == 'hi' else '' }}">हिं</a>
+                    {% if request.endpoint %}
+                        <a href="{{ url_for(request.endpoint, lang='en', **request.view_args) if request.view_args else url_for(request.endpoint, lang='en') }}" 
+                           class="lang-btn {{ 'active' if lang == 'en' else '' }}">EN</a>
+                        <a href="{{ url_for(request.endpoint, lang='hi', **request.view_args) if request.view_args else url_for(request.endpoint, lang='hi') }}" 
+                           class="lang-btn {{ 'active' if lang == 'hi' else '' }}">हिं</a>
+                    {% else %}
+                        <a href="{{ url_for('index', lang='en') }}" 
+                           class="lang-btn {{ 'active' if lang == 'en' else '' }}">EN</a>
+                        <a href="{{ url_for('index', lang='hi') }}" 
+                           class="lang-btn {{ 'active' if lang == 'hi' else '' }}">हिं</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

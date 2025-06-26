@@ -1,0 +1,496 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Naya Sawera Foundation{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Admin Dashboard</h1>
+        <p class="text-xl">Manage content, events, reports, and more</p>
+    </div>
+</section>
+
+<!-- Dashboard Content -->
+<section class="py-8 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6 text-center">
+                <div class="text-3xl font-bold text-primary mb-2">{{ events.events|length }}</div>
+                <div class="text-gray-600">Active Events</div>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6 text-center">
+                <div class="text-3xl font-bold text-accent mb-2">{{ reports.reports|length }}</div>
+                <div class="text-gray-600">Reports Submitted</div>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6 text-center">
+                <div class="text-3xl font-bold text-secondary mb-2">{{ gallery.items|length }}</div>
+                <div class="text-gray-600">Gallery Items</div>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6 text-center">
+                <div class="text-3xl font-bold text-purple-600 mb-2">{{ newsletter.subscribers|length }}</div>
+                <div class="text-gray-600">Newsletter Subscribers</div>
+            </div>
+        </div>
+
+        <!-- Admin Tabs -->
+        <div class="bg-white rounded-lg shadow">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <button onclick="showTab('content')" class="admin-tab active" data-tab="content">
+                        <i class="fas fa-edit mr-2" aria-hidden="true"></i>Content Management
+                    </button>
+                    <button onclick="showTab('events')" class="admin-tab" data-tab="events">
+                        <i class="fas fa-calendar mr-2" aria-hidden="true"></i>Events
+                    </button>
+                    <button onclick="showTab('reports')" class="admin-tab" data-tab="reports">
+                        <i class="fas fa-flag mr-2" aria-hidden="true"></i>Reports
+                    </button>
+                    <button onclick="showTab('gallery')" class="admin-tab" data-tab="gallery">
+                        <i class="fas fa-images mr-2" aria-hidden="true"></i>Gallery
+                    </button>
+                    <button onclick="showTab('products')" class="admin-tab" data-tab="products">
+                        <i class="fas fa-box mr-2" aria-hidden="true"></i>Products
+                    </button>
+                    <button onclick="showTab('newsletter')" class="admin-tab" data-tab="newsletter">
+                        <i class="fas fa-envelope mr-2" aria-hidden="true"></i>Newsletter
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Content Management Tab -->
+            <div id="content-tab" class="tab-content active p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Website Content Management</h2>
+                
+                <form action="{{ url_for('update_content') }}" method="POST" class="space-y-6">
+                    <div>
+                        <label for="mission" class="block text-sm font-medium text-gray-700 mb-2">Mission Statement</label>
+                        <textarea id="mission" name="mission" rows="3" required
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">{{ content.mission }}</textarea>
+                    </div>
+                    
+                    <div>
+                        <label for="about_text" class="block text-sm font-medium text-gray-700 mb-2">About Text</label>
+                        <textarea id="about_text" name="about_text" rows="5" required
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">{{ content.about_text }}</textarea>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Contact Email</label>
+                            <input type="email" id="email" name="email" value="{{ content.contact.email }}" required
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Contact Phone</label>
+                            <input type="tel" id="phone" name="phone" value="{{ content.contact.phone }}" required
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label for="address" class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                            <input type="text" id="address" name="address" value="{{ content.contact.address }}" required
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="bg-primary hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-save mr-2" aria-hidden="true"></i>Update Content
+                    </button>
+                </form>
+            </div>
+
+            <!-- Events Management Tab -->
+            <div id="events-tab" class="tab-content p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Events Management</h2>
+                    <button onclick="showAddEventForm()" class="bg-accent hover:bg-green-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-plus mr-2" aria-hidden="true"></i>Add New Event
+                    </button>
+                </div>
+
+                <!-- Add Event Form (Hidden by default) -->
+                <div id="add-event-form" class="bg-gray-50 rounded-lg p-6 mb-6 hidden">
+                    <h3 class="text-lg font-semibold mb-4">Add New Event</h3>
+                    <form action="{{ url_for('add_event') }}" method="POST" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="event_title" class="block text-sm font-medium text-gray-700 mb-2">Event Title</label>
+                                <input type="text" id="event_title" name="title" required
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label for="event_location" class="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                                <input type="text" id="event_location" name="location" required
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="event_description" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                            <textarea id="event_description" name="description" rows="3" required
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label for="event_date" class="block text-sm font-medium text-gray-700 mb-2">Event Date</label>
+                                <input type="date" id="event_date" name="date" required
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label for="goal_amount" class="block text-sm font-medium text-gray-700 mb-2">Goal Amount (₹)</label>
+                                <input type="number" id="goal_amount" name="goal_amount" min="0" required
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label for="event_image_url" class="block text-sm font-medium text-gray-700 mb-2">Image URL</label>
+                                <input type="url" id="event_image_url" name="image_url"
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-3">
+                            <button type="button" onclick="hideAddEventForm()" 
+                                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg font-semibold transition-colors">
+                                Cancel
+                            </button>
+                            <button type="submit" 
+                                    class="bg-accent hover:bg-green-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+                                <i class="fas fa-plus mr-2" aria-hidden="true"></i>Add Event
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Events List -->
+                <div class="space-y-4">
+                    {% for event in events.events %}
+                    <div class="bg-white border rounded-lg p-4">
+                        <div class="flex justify-between items-start">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800">{{ event.title }}</h3>
+                                <p class="text-gray-600 mb-2">{{ event.description[:100] }}...</p>
+                                <div class="text-sm text-gray-500 space-y-1">
+                                    <div><i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>{{ event.location }}</div>
+                                    <div><i class="fas fa-calendar mr-2" aria-hidden="true"></i>{{ event.date }}</div>
+                                    <div><i class="fas fa-target mr-2" aria-hidden="true"></i>₹{{ "{:,}".format(event.raised_amount) }} / ₹{{ "{:,}".format(event.goal_amount) }}</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm text-gray-500 mb-2">
+                                    {{ event.donations|length if event.donations else 0 }} donations, 
+                                    {{ event.volunteers|length if event.volunteers else 0 }} volunteers
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Reports Management Tab -->
+            <div id="reports-tab" class="tab-content p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Reports Management</h2>
+                
+                <div class="space-y-4">
+                    {% for report in reports.reports %}
+                    <div class="bg-white border rounded-lg p-4">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800">{{ report.title }}</h3>
+                                <p class="text-gray-600 mb-2">{{ report.description[:150] }}...</p>
+                                <div class="text-sm text-gray-500 space-y-1">
+                                    <div><i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>{{ report.location }}</div>
+                                    <div><i class="fas fa-user mr-2" aria-hidden="true"></i>{{ report.reporter_name }} ({{ report.reporter_email }})</div>
+                                    <div><i class="fas fa-clock mr-2" aria-hidden="true"></i>{{ report.submitted_at[:10] }}</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="mb-2">
+                                    {% if report.status == 'pending' %}
+                                        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-semibold">
+                                            <i class="fas fa-clock mr-1" aria-hidden="true"></i>Pending
+                                        </span>
+                                    {% else %}
+                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
+                                            <i class="fas fa-check mr-1" aria-hidden="true"></i>Approved
+                                        </span>
+                                    {% endif %}
+                                </div>
+                                {% if report.status == 'pending' %}
+                                    <a href="{{ url_for('approve_report', report_id=report.id) }}" 
+                                       class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm font-semibold transition-colors">
+                                        <i class="fas fa-check mr-1" aria-hidden="true"></i>Approve
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Gallery Management Tab -->
+            <div id="gallery-tab" class="tab-content p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Gallery Management</h2>
+                    <button onclick="showAddGalleryForm()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-plus mr-2" aria-hidden="true"></i>Add Gallery Item
+                    </button>
+                </div>
+
+                <!-- Add Gallery Item Form -->
+                <div id="add-gallery-form" class="bg-gray-50 rounded-lg p-6 mb-6 hidden">
+                    <h3 class="text-lg font-semibold mb-4">Add Gallery Item</h3>
+                    <form action="{{ url_for('add_gallery_item') }}" method="POST" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="gallery_title" class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                                <input type="text" id="gallery_title" name="title" required
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label for="gallery_type" class="block text-sm font-medium text-gray-700 mb-2">Type</label>
+                                <select id="gallery_type" name="type" required
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <option value="image">Image</option>
+                                    <option value="video">Video</option>
+                                    <option value="article">Article</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="gallery_description" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                            <textarea id="gallery_description" name="description" rows="3" required
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="gallery_url" class="block text-sm font-medium text-gray-700 mb-2">URL</label>
+                                <input type="url" id="gallery_url" name="url" required
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label for="gallery_thumbnail" class="block text-sm font-medium text-gray-700 mb-2">Thumbnail URL</label>
+                                <input type="url" id="gallery_thumbnail" name="thumbnail_url"
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-3">
+                            <button type="button" onclick="hideAddGalleryForm()" 
+                                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg font-semibold transition-colors">
+                                Cancel
+                            </button>
+                            <button type="submit" 
+                                    class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+                                <i class="fas fa-plus mr-2" aria-hidden="true"></i>Add Item
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Gallery Items List -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {% for item in gallery.items %}
+                    <div class="bg-white border rounded-lg overflow-hidden">
+                        {% if item.thumbnail_url %}
+                            <img src="{{ item.thumbnail_url }}" alt="{{ item.title }}" class="w-full h-32 object-cover">
+                        {% endif %}
+                        <div class="p-4">
+                            <h3 class="font-semibold text-gray-800">{{ item.title }}</h3>
+                            <p class="text-sm text-gray-600 mb-2">{{ item.description[:50] }}...</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs bg-gray-100 px-2 py-1 rounded">{{ item.type }}</span>
+                                <span class="text-xs text-gray-500">{{ item.added_at[:10] }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Products Management Tab -->
+            <div id="products-tab" class="tab-content p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Products Management</h2>
+                    <button onclick="showAddProductForm()" class="bg-secondary hover:bg-yellow-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-plus mr-2" aria-hidden="true"></i>Add New Product
+                    </button>
+                </div>
+
+                <!-- Add Product Form -->
+                <div id="add-product-form" class="bg-gray-50 rounded-lg p-6 mb-6 hidden">
+                    <h3 class="text-lg font-semibold mb-4">Add New Product</h3>
+                    <form action="{{ url_for('add_product') }}" method="POST" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="product_name" class="block text-sm font-medium text-gray-700 mb-2">Product Name</label>
+                                <input type="text" id="product_name" name="name" required
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                            <div>
+                                <label for="product_price" class="block text-sm font-medium text-gray-700 mb-2">Price (₹)</label>
+                                <input type="number" id="product_price" name="price" min="0" step="0.01" required
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="product_description" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                            <textarea id="product_description" name="description" rows="3" required
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                        </div>
+                        
+                        <div>
+                            <label for="product_image_url" class="block text-sm font-medium text-gray-700 mb-2">Image URL</label>
+                            <input type="url" id="product_image_url" name="image_url"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        
+                        <div class="flex gap-3">
+                            <button type="button" onclick="hideAddProductForm()" 
+                                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg font-semibold transition-colors">
+                                Cancel
+                            </button>
+                            <button type="submit" 
+                                    class="bg-secondary hover:bg-yellow-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+                                <i class="fas fa-plus mr-2" aria-hidden="true"></i>Add Product
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Products List -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {% for product in products.products %}
+                    <div class="bg-white border rounded-lg overflow-hidden">
+                        {% if product.image_url %}
+                            <img src="{{ product.image_url }}" alt="{{ product.name }}" class="w-full h-32 object-cover">
+                        {% endif %}
+                        <div class="p-4">
+                            <h3 class="font-semibold text-gray-800">{{ product.name }}</h3>
+                            <p class="text-sm text-gray-600 mb-2">{{ product.description[:50] }}...</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-lg font-bold text-primary">₹{{ product.price }}</span>
+                                <span class="text-xs text-gray-500">{{ product.orders|length if product.orders else 0 }} orders</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Newsletter Management Tab -->
+            <div id="newsletter-tab" class="tab-content p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Newsletter Subscribers</h2>
+                
+                <div class="bg-white border rounded-lg">
+                    <div class="p-4 border-b">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-semibold">Subscribers ({{ newsletter.subscribers|length }})</h3>
+                            <button onclick="exportSubscribers()" class="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+                                <i class="fas fa-download mr-2" aria-hidden="true"></i>Export CSV
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subscribed Date</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                {% for subscriber in newsletter.subscribers %}
+                                <tr>
+                                    <td class="px-4 py-2 text-sm text-gray-900">{{ subscriber.email }}</td>
+                                    <td class="px-4 py-2 text-sm text-gray-500">{{ subscriber.subscribed_at[:10] }}</td>
+                                    <td class="px-4 py-2 text-sm">
+                                        {% if subscriber.active %}
+                                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">Active</span>
+                                        {% else %}
+                                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-semibold">Inactive</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function showTab(tabName) {
+    // Hide all tab contents
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabContents.forEach(content => content.classList.remove('active'));
+    
+    // Remove active class from all tabs
+    const tabs = document.querySelectorAll('.admin-tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    
+    // Show selected tab content
+    document.getElementById(tabName + '-tab').classList.add('active');
+    
+    // Add active class to selected tab
+    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+}
+
+function showAddEventForm() {
+    document.getElementById('add-event-form').classList.remove('hidden');
+}
+
+function hideAddEventForm() {
+    document.getElementById('add-event-form').classList.add('hidden');
+}
+
+function showAddGalleryForm() {
+    document.getElementById('add-gallery-form').classList.remove('hidden');
+}
+
+function hideAddGalleryForm() {
+    document.getElementById('add-gallery-form').classList.add('hidden');
+}
+
+function showAddProductForm() {
+    document.getElementById('add-product-form').classList.remove('hidden');
+}
+
+function hideAddProductForm() {
+    document.getElementById('add-product-form').classList.add('hidden');
+}
+
+function exportSubscribers() {
+    // Create CSV content
+    let csvContent = "Email,Subscribed Date,Status\n";
+    
+    {% for subscriber in newsletter.subscribers %}
+    csvContent += "{{ subscriber.email }},{{ subscriber.subscribed_at[:10] }},{{ 'Active' if subscriber.active else 'Inactive' }}\n";
+    {% endfor %}
+    
+    // Create and download file
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", "newsletter_subscribers.csv");
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+</script>
+{% endblock %}
