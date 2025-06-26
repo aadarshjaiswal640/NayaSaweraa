@@ -49,12 +49,12 @@
                 <!-- Desktop Navigation -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="{{ url_for('index', lang=lang) }}" class="nav-link">{{ t.home }}</a>
-                        <a href="{{ url_for('events', lang=lang) }}" class="nav-link">{{ t.events }}</a>
-                        <a href="{{ url_for('gallery', lang=lang) }}" class="nav-link">{{ t.gallery }}</a>
-                        <a href="{{ url_for('products', lang=lang) }}" class="nav-link">{{ t.products }}</a>
-                        <a href="{{ url_for('report_incident', lang=lang) }}" class="nav-link">{{ t.report }}</a>
-                        <a href="{{ url_for('admin_dashboard') }}" class="nav-link">{{ t.admin }}</a>
+                        <a href="{{ url_for('index', lang=lang) }}" class="nav-link">{{ t.home if t else 'Home' }}</a>
+                        <a href="{{ url_for('events', lang=lang) }}" class="nav-link">{{ t.events if t else 'Events' }}</a>
+                        <a href="{{ url_for('gallery', lang=lang) }}" class="nav-link">{{ t.gallery if t else 'Gallery' }}</a>
+                        <a href="{{ url_for('products', lang=lang) }}" class="nav-link">{{ t.products if t else 'Products' }}</a>
+                        <a href="{{ url_for('report_incident', lang=lang) }}" class="nav-link">{{ t.report if t else 'Report' }}</a>
+                        <a href="{{ url_for('admin_dashboard') }}" class="nav-link">{{ t.admin if t else 'Admin' }}</a>
                     </div>
                 </div>
                 
@@ -82,12 +82,12 @@
         <!-- Mobile Navigation Menu -->
         <div class="md:hidden hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
-                <a href="{{ url_for('index', lang=lang) }}" class="mobile-nav-link">{{ t.home }}</a>
-                <a href="{{ url_for('events', lang=lang) }}" class="mobile-nav-link">{{ t.events }}</a>
-                <a href="{{ url_for('gallery', lang=lang) }}" class="mobile-nav-link">{{ t.gallery }}</a>
-                <a href="{{ url_for('products', lang=lang) }}" class="mobile-nav-link">{{ t.products }}</a>
-                <a href="{{ url_for('report_incident', lang=lang) }}" class="mobile-nav-link">{{ t.report }}</a>
-                <a href="{{ url_for('admin_dashboard') }}" class="mobile-nav-link">{{ t.admin }}</a>
+                <a href="{{ url_for('index', lang=lang) }}" class="mobile-nav-link">{{ t.home if t else 'Home' }}</a>
+                <a href="{{ url_for('events', lang=lang) }}" class="mobile-nav-link">{{ t.events if t else 'Events' }}</a>
+                <a href="{{ url_for('gallery', lang=lang) }}" class="mobile-nav-link">{{ t.gallery if t else 'Gallery' }}</a>
+                <a href="{{ url_for('products', lang=lang) }}" class="mobile-nav-link">{{ t.products if t else 'Products' }}</a>
+                <a href="{{ url_for('report_incident', lang=lang) }}" class="mobile-nav-link">{{ t.report if t else 'Report' }}</a>
+                <a href="{{ url_for('admin_dashboard') }}" class="mobile-nav-link">{{ t.admin if t else 'Admin' }}</a>
                 <div class="flex space-x-2 px-3 py-2">
                     <a href="{{ url_for('index', lang='en') }}" 
                        class="lang-btn {{ 'active' if lang == 'en' else '' }}">EN</a>
@@ -127,7 +127,7 @@
                         <i class="fas fa-sun text-2xl text-secondary mr-2" aria-hidden="true"></i>
                         <span class="font-bold text-xl">Naya Sawera Foundation</span>
                     </div>
-                    <p class="text-gray-300 mb-4">{{ t.footer_mission }}</p>
+                    <p class="text-gray-300 mb-4">{{ t.footer_mission if t else 'Empowering communities for a better tomorrow' }}</p>
                     <div class="flex space-x-4">
                         <a href="https://www.facebook.com/nayasawera/" target="_blank" class="text-gray-300 hover:text-white transition-colors" aria-label="Facebook">
                             <i class="fab fa-facebook-f text-xl" aria-hidden="true"></i>
@@ -145,16 +145,16 @@
                 <div>
                     <h3 class="font-semibold text-lg mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="{{ url_for('index', lang=lang) }}" class="text-gray-300 hover:text-white transition-colors">{{ t.home }}</a></li>
-                        <li><a href="{{ url_for('events', lang=lang) }}" class="text-gray-300 hover:text-white transition-colors">{{ t.events }}</a></li>
-                        <li><a href="{{ url_for('gallery', lang=lang) }}" class="text-gray-300 hover:text-white transition-colors">{{ t.gallery }}</a></li>
-                        <li><a href="{{ url_for('products', lang=lang) }}" class="text-gray-300 hover:text-white transition-colors">{{ t.products }}</a></li>
+                        <li><a href="{{ url_for('index', lang=lang) }}" class="text-gray-300 hover:text-white transition-colors">{{ t.home if t else 'Home' }}</a></li>
+                        <li><a href="{{ url_for('events', lang=lang) }}" class="text-gray-300 hover:text-white transition-colors">{{ t.events if t else 'Events' }}</a></li>
+                        <li><a href="{{ url_for('gallery', lang=lang) }}" class="text-gray-300 hover:text-white transition-colors">{{ t.gallery if t else 'Gallery' }}</a></li>
+                        <li><a href="{{ url_for('products', lang=lang) }}" class="text-gray-300 hover:text-white transition-colors">{{ t.products if t else 'Products' }}</a></li>
                     </ul>
                 </div>
                 
                 <!-- Contact Info -->
                 <div>
-                    <h3 class="font-semibold text-lg mb-4">{{ t.contact }}</h3>
+                    <h3 class="font-semibold text-lg mb-4">{{ t.contact if t else 'Contact' }}</h3>
                     <div class="space-y-2 text-gray-300">
                         <p><i class="fas fa-envelope mr-2" aria-hidden="true"></i>naya.sawera2020@gmail.com</p>
                         <p><i class="fas fa-phone mr-2" aria-hidden="true"></i>+91 9116921989</p>
@@ -166,13 +166,13 @@
             <!-- Newsletter Subscription -->
             <div class="border-t border-gray-700 mt-8 pt-8">
                 <div class="flex flex-col md:flex-row justify-between items-center">
-                    <p class="text-gray-300 mb-4 md:mb-0">{{ t.subscribe }}</p>
+                    <p class="text-gray-300 mb-4 md:mb-0">{{ t.subscribe if t else 'Subscribe to Newsletter' }}</p>
                     <form action="{{ url_for('subscribe_newsletter') }}" method="POST" class="flex w-full md:w-auto">
-                        <input type="email" name="email" placeholder="{{ t.email }}" required
+                        <input type="email" name="email" placeholder="{{ t.email if t else 'Email' }}" required
                                class="flex-1 md:w-64 px-4 py-2 rounded-l-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary" 
                                aria-label="Email address for newsletter">
                         <button type="submit" class="bg-primary hover:bg-blue-700 px-6 py-2 rounded-r-lg transition-colors">
-                            {{ t.subscribe }}
+                            {{ t.subscribe if t else 'Subscribe' }}
                         </button>
                     </form>
                 </div>

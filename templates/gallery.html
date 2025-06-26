@@ -34,7 +34,7 @@
 <!-- Gallery Grid -->
 <section class="py-16 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {% if gallery.items %}
+        {% if gallery and gallery.items %}
             <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {% for item in gallery.items %}
                 <div class="gallery-item bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow" 

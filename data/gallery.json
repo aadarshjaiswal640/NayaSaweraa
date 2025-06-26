@@ -35,6 +35,42 @@
       "url": "/attached_assets/WhatsApp Image 2025-06-26 at 14.54.57_ca989045_1750930213030.jpg",
       "thumbnail_url": "/attached_assets/WhatsApp Image 2025-06-26 at 14.54.57_ca989045_1750930213030.jpg",
       "added_at": "2025-06-26T14:54:57Z"
+    },
+    {
+      "id": 5,
+      "title": "Community Youth Engagement",
+      "description": "Community celebration event with young volunteers and leaders",
+      "type": "image",
+      "url": "/attached_assets/WhatsApp Image 2025-06-26 at 14.54.57_f18f304d_1750931046200.jpg",
+      "thumbnail_url": "/attached_assets/WhatsApp Image 2025-06-26 at 14.54.57_f18f304d_1750931046200.jpg",
+      "added_at": "2025-06-26T14:54:57Z"
+    },
+    {
+      "id": 6,
+      "title": "Food Relief Distribution",
+      "description": "Team organizing food packages for community distribution",
+      "type": "image",
+      "url": "/attached_assets/WhatsApp Image 2025-06-26 at 14.54.57_6049144a_1750931056870.jpg",
+      "thumbnail_url": "/attached_assets/WhatsApp Image 2025-06-26 at 14.54.57_6049144a_1750931056870.jpg",
+      "added_at": "2025-06-26T14:54:57Z"
+    },
+    {
+      "id": 7,
+      "title": "Senior Care Dining Program",
+      "description": "Providing meals and companionship to elderly community members",
+      "type": "image",
+      "url": "/attached_assets/WhatsApp Image 2025-06-26 at 14.54.57_5cb33678_1750931067055.jpg",
+      "thumbnail_url": "/attached_assets/WhatsApp Image 2025-06-26 at 14.54.57_5cb33678_1750931067055.jpg",
+      "added_at": "2025-06-26T14:54:57Z"
+    },
+    {
+      "id": 8,
+      "title": "Senior Community Group Visit",
+      "description": "Team visit with senior citizens at community center",
+      "type": "image",
+      "url": "/attached_assets/WhatsApp Image 2025-06-26 at 14.54.57_67607e48_1750931076363.jpg",
+      "thumbnail_url": "/attached_assets/WhatsApp Image 2025-06-26 at 14.54.57_67607e48_1750931076363.jpg",
+      "added_at": "2025-06-26T14:54:57Z"
     }
   ]
 }

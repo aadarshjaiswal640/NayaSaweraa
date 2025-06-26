@@ -7,10 +7,16 @@
       "location": "Rural Maharashtra",
       "date": "2024-08-15",
       "goal_amount": 500000,
-      "raised_amount": 125000,
+      "raised_amount": 130000.0,
       "image_url": "https://images.unsplash.com/photo-1497486751825-1233686d5d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       "created_at": "2024-06-01T10:00:00Z",
-      "donations": [],
+      "donations": [
+        {
+          "donor_name": "Aadarsh",
+          "amount": 5000.0,
+          "date": "2025-06-26T09:46:07.558193"
+        }
+      ],
       "volunteers": []
     },
     {

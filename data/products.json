@@ -18,7 +18,20 @@
       "image_url": "https://images.unsplash.com/photo-1587049352846-4a222e784d38?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       "available": true,
       "added_at": "2024-06-05T15:30:00Z",
-      "orders": []
+      "orders": [
+        {
+          "id": 1,
+          "customer_name": "Aadarsh Jaiswal",
+          "customer_email": "aadarshjaiswal@gmail.com",
+          "customer_phone": "09373608814",
+          "customer_address": "Godhani Main Road, Nagpur\r\nSatyam Garden Godhani Main Road Nagpur",
+          "quantity": 1,
+          "total_amount": 450,
+          "ordered_at": "2025-06-26T09:39:11.323346",
+          "status": "pending",
+          "delivered": false
+        }
+      ]
     }
   ]
 }
