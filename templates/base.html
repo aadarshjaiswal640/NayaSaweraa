@@ -83,7 +83,7 @@
             <div class="px-4 pt-2 pb-3 space-y-1 bg-white border-t shadow-lg">
                 <a href="{{ url_for('index', lang=lang) }}" class="mobile-nav-link">{{ t.home if t else 'Home' }}</a>
                 <a href="{{ url_for('events', lang=lang) }}" class="mobile-nav-link">{{ t.events if t else 'Events' }}</a>
-                
+                <a href="{{ url_for('gallery', lang=lang) }}" class="mobile-nav-link">{{ t.gallery if t else 'Gallery' }}</a>
                 <a href="{{ url_for('products', lang=lang) }}" class="mobile-nav-link">{{ t.products if t else 'Products' }}</a>
                 <a href="{{ url_for('report_incident', lang=lang) }}" class="mobile-nav-link">{{ t.report if t else 'Report' }}</a>
                 <div class="flex space-x-2 px-3 py-2">
@@ -232,17 +232,6 @@
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
     
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (menuBtn && mobileMenu) {
-        menuBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
-        });
-    }
-});
-</script>
     {% block scripts %}{% endblock %}
 </body>
 </html>
