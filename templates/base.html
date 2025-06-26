@@ -61,21 +61,12 @@
                 <!-- Language Toggle -->
                 <div class="flex items-center space-x-4">
                     <div class="hidden md:flex space-x-2">
-                        {% if request.endpoint %}
-                            <a href="{{ url_for(request.endpoint, lang='en', **request.view_args) if request.view_args else url_for(request.endpoint, lang='en') }}" 
-                               class="lang-btn {{ 'active' if lang == 'en' else '' }}" 
-                               aria-label="Switch to English">EN</a>
-                            <a href="{{ url_for(request.endpoint, lang='hi', **request.view_args) if request.view_args else url_for(request.endpoint, lang='hi') }}" 
-                               class="lang-btn {{ 'active' if lang == 'hi' else '' }}" 
-                               aria-label="Switch to Hindi">हिं</a>
-                        {% else %}
-                            <a href="{{ url_for('index', lang='en') }}" 
-                               class="lang-btn {{ 'active' if lang == 'en' else '' }}" 
-                               aria-label="Switch to English">EN</a>
-                            <a href="{{ url_for('index', lang='hi') }}" 
-                               class="lang-btn {{ 'active' if lang == 'hi' else '' }}" 
-                               aria-label="Switch to Hindi">हिं</a>
-                        {% endif %}
+                        <a href="{{ url_for('index', lang='en') }}" 
+                           class="lang-btn {{ 'active' if lang == 'en' else '' }}" 
+                           aria-label="Switch to English">EN</a>
+                        <a href="{{ url_for('index', lang='hi') }}" 
+                           class="lang-btn {{ 'active' if lang == 'hi' else '' }}" 
+                           aria-label="Switch to Hindi">हिं</a>
                     </div>
                     
                     <!-- Mobile menu button -->
@@ -98,17 +89,10 @@
                 <a href="{{ url_for('report_incident', lang=lang) }}" class="mobile-nav-link">{{ t.report }}</a>
                 <a href="{{ url_for('admin_dashboard') }}" class="mobile-nav-link">{{ t.admin }}</a>
                 <div class="flex space-x-2 px-3 py-2">
-                    {% if request.endpoint %}
-                        <a href="{{ url_for(request.endpoint, lang='en', **request.view_args) if request.view_args else url_for(request.endpoint, lang='en') }}" 
-                           class="lang-btn {{ 'active' if lang == 'en' else '' }}">EN</a>
-                        <a href="{{ url_for(request.endpoint, lang='hi', **request.view_args) if request.view_args else url_for(request.endpoint, lang='hi') }}" 
-                           class="lang-btn {{ 'active' if lang == 'hi' else '' }}">हिं</a>
-                    {% else %}
-                        <a href="{{ url_for('index', lang='en') }}" 
-                           class="lang-btn {{ 'active' if lang == 'en' else '' }}">EN</a>
-                        <a href="{{ url_for('index', lang='hi') }}" 
-                           class="lang-btn {{ 'active' if lang == 'hi' else '' }}">हिं</a>
-                    {% endif %}
+                    <a href="{{ url_for('index', lang='en') }}" 
+                       class="lang-btn {{ 'active' if lang == 'en' else '' }}">EN</a>
+                    <a href="{{ url_for('index', lang='hi') }}" 
+                       class="lang-btn {{ 'active' if lang == 'hi' else '' }}">हिं</a>
                 </div>
             </div>
         </div>
@@ -145,17 +129,14 @@
                     </div>
                     <p class="text-gray-300 mb-4">{{ t.footer_mission }}</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors" aria-label="Facebook">
+                        <a href="https://www.facebook.com/nayasawera/" target="_blank" class="text-gray-300 hover:text-white transition-colors" aria-label="Facebook">
                             <i class="fab fa-facebook-f text-xl" aria-hidden="true"></i>
                         </a>
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors" aria-label="Twitter">
-                            <i class="fab fa-twitter text-xl" aria-hidden="true"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors" aria-label="Instagram">
+                        <a href="https://www.instagram.com/nayasawera_ngo/" target="_blank" class="text-gray-300 hover:text-white transition-colors" aria-label="Instagram">
                             <i class="fab fa-instagram text-xl" aria-hidden="true"></i>
                         </a>
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin-in text-xl" aria-hidden="true"></i>
+                        <a href="https://www.youtube.com/channel/UCCuGjan9G_BOWXDl1TXGPqg" target="_blank" class="text-gray-300 hover:text-white transition-colors" aria-label="YouTube">
+                            <i class="fab fa-youtube text-xl" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
@@ -175,9 +156,9 @@
                 <div>
                     <h3 class="font-semibold text-lg mb-4">{{ t.contact }}</h3>
                     <div class="space-y-2 text-gray-300">
-                        <p><i class="fas fa-envelope mr-2" aria-hidden="true"></i>{{ content.contact.email }}</p>
-                        <p><i class="fas fa-phone mr-2" aria-hidden="true"></i>{{ content.contact.phone }}</p>
-                        <p><i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>{{ content.contact.address }}</p>
+                        <p><i class="fas fa-envelope mr-2" aria-hidden="true"></i>naya.sawera2020@gmail.com</p>
+                        <p><i class="fas fa-phone mr-2" aria-hidden="true"></i>+91 9116921989</p>
+                        <p><i class="fas fa-map-marker-alt mr-2" aria-hidden="true"></i>New Delhi, India</p>
                     </div>
                 </div>
             </div>
@@ -203,6 +184,15 @@
             </div>
         </div>
     </footer>
+    
+    <!-- WhatsApp Float Button -->
+    <div class="fixed bottom-4 left-4 z-50">
+        <a href="https://wa.me/919116921989" target="_blank" 
+           class="bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg transition-colors flex items-center justify-center"
+           aria-label="Contact us on WhatsApp">
+            <i class="fab fa-whatsapp text-2xl" aria-hidden="true"></i>
+        </a>
+    </div>
     
     <!-- Chatbot -->
     <div id="chatbot-container" class="fixed bottom-4 right-4 z-50">

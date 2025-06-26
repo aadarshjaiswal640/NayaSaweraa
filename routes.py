@@ -69,8 +69,9 @@ def volunteer(event_id):
 @app.route('/report')
 @app.route('/report/<lang>')
 def report_incident(lang='en'):
+    content = load_json_data('data/content.json')
     translations = get_translation(lang)
-    return render_template('report.html', lang=lang, t=translations)
+    return render_template('report.html', content=content, lang=lang, t=translations)
 
 @app.route('/report/submit', methods=['POST'])
 def submit_report():
@@ -99,15 +100,17 @@ def submit_report():
 @app.route('/gallery/<lang>')
 def gallery(lang='en'):
     gallery_data = load_json_data('data/gallery.json')
+    content = load_json_data('data/content.json')
     translations = get_translation(lang)
-    return render_template('gallery.html', gallery=gallery_data, lang=lang, t=translations)
+    return render_template('gallery.html', gallery=gallery_data, content=content, lang=lang, t=translations)
 
 @app.route('/products')
 @app.route('/products/<lang>')
 def products(lang='en'):
     products_data = load_json_data('data/products.json')
+    content = load_json_data('data/content.json')
     translations = get_translation(lang)
-    return render_template('products.html', products=products_data, lang=lang, t=translations)
+    return render_template('products.html', products=products_data, content=content, lang=lang, t=translations)
 
 @app.route('/products/purchase/<int:product_id>', methods=['POST'])
 def purchase_product(product_id):
@@ -266,14 +269,19 @@ def add_product():
 
 @app.route('/chatbot', methods=['POST'])
 def chatbot():
-    user_message = request.json.get('message', '')
+    if request.json:
+        user_message = request.json.get('message', '')
+    else:
+        user_message = ''
     response = get_chatbot_response(user_message)
     return jsonify({'response': response})
 
 @app.errorhandler(404)
 def not_found(error):
-    return render_template('404.html'), 404
+    translations = get_translation('en')
+    return render_template('404.html', lang='en', t=translations), 404
 
 @app.errorhandler(500)
 def internal_error(error):
-    return render_template('500.html'), 500
+    translations = get_translation('en')
+    return render_template('500.html', lang='en', t=translations), 500
